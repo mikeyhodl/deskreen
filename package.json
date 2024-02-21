@@ -327,7 +327,7 @@
     "@hot-loader/react-dom": "^16.13.0",
     "@material-ui/core": "^4.11.0",
     "@reduxjs/toolkit": "^1.4.0",
-    "axios": "^0.19.2",
+    "axios": "^0.28.0",
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "connected-react-router": "^6.6.1",
