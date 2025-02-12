@@ -347,7 +347,7 @@
     "i18next-sync-fs-backend": "^1.1.1",
     "internal-ip": "^6.1.0",
     "kcors": "^2.2.2",
-    "koa": "^2.13.0",
+    "koa": "^2.15.4",
     "koa-router": "^9.4.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
