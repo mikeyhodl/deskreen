@@ -10,6 +10,7 @@ import { app, shell, BrowserWindow, Notification } from 'electron';
 import { join } from 'path';
 import { is, optimizer } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
+import { existsSync } from 'node:fs';
 
 // function createWindow(): void {
 //   // Create the browser window.
@@ -95,6 +96,18 @@ import { initGlobals } from './helpers/initGlobals';
 import { ElectronStoreKeys } from '../common/ElectronStoreKeys.enum';
 import { getDeskreenGlobal } from './helpers/getDeskreenGlobal';
 import { startLogBufferCleanup } from './utils/LoggerWithFilePrefix';
+
+const resolvePreloadScriptPath = (entry: 'index' | 'helperRenderer'): string => {
+	const baseDir = join(__dirname, '../preload');
+	const candidates = [`${entry}.js`, `${entry}.mjs`, `${entry}.cjs`];
+	for (const fileName of candidates) {
+		const fullPath = join(baseDir, fileName);
+		if (existsSync(fullPath)) {
+			return fullPath;
+		}
+	}
+	return join(baseDir, `${entry}.js`);
+};
 
 export default class DeskreenApp {
 	mainWindow: BrowserWindow | null = null;
@@ -209,7 +222,7 @@ export default class DeskreenApp {
 			autoHideMenuBar: true,
 			...(process.platform === 'linux' ? { icon } : {}),
 			webPreferences: {
-				preload: join(__dirname, '../preload/index.js'),
+				preload: resolvePreloadScriptPath('index'),
 				sandbox: false,
 			},
 		});

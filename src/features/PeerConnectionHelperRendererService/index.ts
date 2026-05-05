@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { BrowserWindow } from 'electron';
 import { is } from '@electron-toolkit/utils';
+import { existsSync } from 'node:fs';
 
 type RendererHelperWebcontentsID = number;
 
@@ -13,13 +14,25 @@ export default class RendererWebrtcHelpersService {
 		this.appPath = _appPath;
 	}
 
+	private resolvePreloadScriptPath(entry: 'index' | 'helperRenderer'): string {
+		const baseDir = join(__dirname, '../preload');
+		const candidates = [`${entry}.js`, `${entry}.mjs`, `${entry}.cjs`];
+		for (const fileName of candidates) {
+			const fullPath = join(baseDir, fileName);
+			if (existsSync(fullPath)) {
+				return fullPath;
+			}
+		}
+		return join(baseDir, `${entry}.js`);
+	}
+
 	createPeerConnectionHelperRenderer(): BrowserWindow {
 		let helperRendererWindow: BrowserWindow | null = null;
 
 		helperRendererWindow = new BrowserWindow({
 			show: is.dev, // show in dev only
 			webPreferences: {
-				preload: join(__dirname, '../preload/index.js'),
+				preload: this.resolvePreloadScriptPath('helperRenderer'),
 				// contextIsolation: true,
 				// nodeIntegration: true,
 				nodeIntegration: true,
