@@ -26,15 +26,15 @@ The current open-source Community Edition version has limited features. If you n
 
 ### Prerequisites
 
-You will need to have `node>=v23` `pnpm>=v10.20.0` installed.
+You will need to have `node>=v23` `npm>=10` installed.
 
 
 1. git clone this repo
-2. `pnpm i`
-3. `cd ./src/client-viewer && pnpm i && cd ../..`
-4. `pnpm clean && pnpm build && pnpm start` -- run in prod like mode
+2. `npm i`
+3. `cd ./src/client-viewer && npm i && cd ../..`
+4. `npm run clean && npm run build && npm run start` -- run in prod like mode
 
-#### for more pnpm commands look at `package.json`
+#### for more npm scripts look at `package.json`
 
 ## Starting with Custom Local IP
 
