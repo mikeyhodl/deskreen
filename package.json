@@ -71,7 +71,7 @@
     "simple-peer": "^9.11.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-    "uuid": "^11.1.0"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.6",
